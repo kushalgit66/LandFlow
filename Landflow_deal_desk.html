@@ -48,7 +48,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(15,30,44,.92);backdrop-f
 .brand-mark{width:34px;height:34px;border:2px solid var(--amber);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:16px;color:var(--amber);transform:rotate(45deg);}
 .brand-mark span{transform:rotate(-45deg);}
 .brand-text .t1{font-family:'Barlow Condensed';font-weight:700;font-size:20px;letter-spacing:.06em;line-height:1;}
-.brand-text .t2{font-family:'IBM Plex Mono';font-size:12px;color:var(--amber-2);letter-spacing:.12em;}
+.brand-text .t2{font-family:'IBM Plex Mono';font-size:10px;color:var(--muted);letter-spacing:.12em;}
 nav.links{display:flex;gap:26px;}
 nav.links a{color:var(--muted);text-decoration:none;font-size:13px;font-family:'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;transition:color .15s;}
 nav.links a:hover{color:var(--amber-2);}
@@ -295,7 +295,7 @@ tbody tr:hover{background:var(--paper-2);}
 .notice b{color:var(--text-light);}
 footer{padding:36px 0 50px;border-top:1px solid var(--line-dim);margin-top:20px;}
 footer .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-footer p{font-family:'IBM Plex Mono';font-size:11px;color:var(--text-light);}
+footer p{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted-dark);}
 
 @media(max-width:860px){
   .hero-grid{grid-template-columns:1fr;}
@@ -403,6 +403,7 @@ footer p{font-family:'IBM Plex Mono';font-size:11px;color:var(--text-light);}
         </select>
       </div>
     </div>
+    <div class="sync-tag" id="crGateNotice" style="margin-bottom:14px;"></div>
     <div class="paper-panel">
       <div class="tbl-wrap">
         <table>
@@ -1125,6 +1126,44 @@ function renderPropTable(list){
   }).join("");
 }
 
+/* ================= CR-PRICE GATE / LAKH-FIRST SORT =================
+   Lakh-priced properties are always shown, sorted to the top.
+   Crore-priced properties stay hidden until the page has been refreshed
+   twice (tracked locally via localStorage, so it's per-browser). */
+const REFRESH_KEY = "landflow_refresh_count";
+function bumpAndGetRefreshCount(){
+  let n = 0;
+  try{ n = parseInt(localStorage.getItem(REFRESH_KEY) || "0", 10) || 0; }catch(e){}
+  n += 1;
+  try{ localStorage.setItem(REFRESH_KEY, String(n)); }catch(e){}
+  return n;
+}
+let refreshCount = 0;
+let crUnlocked = false;
+
+function isCrPrice(price){ return /\bcr\b/i.test(price||""); }
+function isLakhPrice(price){ return /lakh/i.test(price||""); }
+
+function applyPriceGateAndSort(list){
+  const visible = crUnlocked ? list : list.filter(p=>!isCrPrice(p.price));
+  return visible.slice().sort((a,b)=>{
+    const aLakh = isLakhPrice(a.price) ? 0 : 1;
+    const bLakh = isLakhPrice(b.price) ? 0 : 1;
+    return aLakh - bLakh;
+  });
+}
+
+function renderCrGateNotice(){
+  const el = document.getElementById("crGateNotice");
+  if(!el) return;
+  if(crUnlocked){
+    el.textContent = "₹-Crore listings are now unlocked for this browser.";
+  }else{
+    const remaining = Math.max(0, 2 - Math.max(0, refreshCount - 1));
+    el.textContent = `Lakh-priced listings shown first. ₹-Crore listings are hidden until this page is refreshed ${remaining} more time${remaining===1?'':'s'} (this browser only).`;
+  }
+}
+
 function populateAreaFilter(){
   const sel = document.getElementById("propAreaFilter");
   const areas = [...new Set(properties.map(p=>p.area))].sort();
@@ -1143,7 +1182,9 @@ function filterProps(){
     const matchesOwner = !ownerFilt || (ownerFilt==="owner" ? p.isOwner : !p.isOwner);
     return matchesQ && matchesArea && matchesOwner;
   });
+  list = applyPriceGateAndSort(list);
   renderPropTable(list);
+  renderCrGateNotice();
 }
 
 /* ================= RENDER: BUYER GRID ================= */
@@ -1211,7 +1252,11 @@ let activePropId = 1;
 
 function renderMatchPropList(){
   const el = document.getElementById("matchPropList");
-  el.innerHTML = properties.map(p=>`
+  const visible = applyPriceGateAndSort(properties);
+  if(!visible.some(p=>p.id===activePropId) && visible.length){
+    activePropId = visible[0].id;
+  }
+  el.innerHTML = visible.map(p=>`
     <div class="msel-item ${p.id===activePropId?'active':''}" data-id="${p.id}">
       <div class="mi-t">#${String(p.id).padStart(2,'0')} · ${p.area}</div>
       <div class="mi-s">${p.size} · ${p.price}</div>
@@ -1545,10 +1590,13 @@ document.getElementById("closeAdminPanel").addEventListener("click",()=>{
 
 /* ================= INIT ================= */
 function init(){
+  refreshCount = bumpAndGetRefreshCount();
+  crUnlocked = refreshCount >= 3; // unlocked once the page has been refreshed twice (3rd load)
+
   renderAuthArea();
   renderStats();
   populateAreaFilter();
-  renderPropTable(properties);
+  filterProps();
   renderBuyerGrid(buyers);
   renderBudgetTable(budgetLeads);
   renderMatchPropList();
