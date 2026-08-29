@@ -229,6 +229,26 @@ tbody tr:hover{background:var(--paper-2);}
 .script-box{background:var(--ink-2);border:1px solid var(--line-dim);border-left:3px solid var(--green);padding:18px 22px;margin-top:18px;}
 .script-box .sb-label{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--green);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
 .script-box p{font-family:'IBM Plex Mono';font-size:13px;color:var(--text-light);line-height:1.7;font-style:italic;}
+.lang-switch{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+.lang-btn{
+  font-family:'IBM Plex Mono';font-size:11px;padding:5px 11px;border:1px solid var(--line-dim);
+  background:transparent;color:var(--muted);cursor:pointer;letter-spacing:.04em;transition:all .13s;
+}
+.lang-btn:hover{border-color:var(--green);color:var(--green);}
+.lang-btn.active{background:var(--green);border-color:var(--green);color:#fff;}
+.lang-script-copy{
+  margin-top:10px;font-family:'IBM Plex Mono';font-size:10.5px;background:transparent;
+  border:1px dashed var(--green);color:var(--green);padding:5px 10px;cursor:pointer;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.lang-script-copy:hover{background:var(--green);color:#fff;}
+.lang-switch{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.lang-pill{
+  font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.04em;padding:6px 12px;
+  background:transparent;border:1px solid var(--line-dim);color:var(--muted);cursor:pointer;transition:all .15s;
+}
+.lang-pill:hover{border-color:var(--amber-2);color:var(--amber-2);}
+.lang-pill.active{background:var(--green);border-color:var(--green);color:#fff;}
 .checklist{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:14px;}
 .checklist span{font-family:'IBM Plex Mono';font-size:11.5px;color:var(--muted);padding-left:16px;position:relative;}
 .checklist span::before{content:'□';position:absolute;left:0;color:var(--amber-2);}
@@ -271,6 +291,26 @@ tbody tr:hover{background:var(--paper-2);}
 .stage-select.stage-lost{border-color:var(--red);color:var(--red);}
 .paper-panel select.stage-select{background:#fff;}
 
+/* ---------- call script language switcher ---------- */
+.lang-switch{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.lang-btn{
+  font-family:'IBM Plex Mono';font-size:11px;padding:6px 12px;letter-spacing:.04em;
+  border:1px solid var(--line-dim);background:transparent;color:var(--muted);cursor:pointer;
+  text-transform:uppercase;transition:all .12s;white-space:nowrap;
+}
+.lang-btn:hover{border-color:var(--green);color:var(--green);}
+.lang-btn.active{background:var(--green);border-color:var(--green);color:#fff;}
+.script-box .lang-name{
+  font-family:'IBM Plex Mono';font-size:10px;color:var(--green);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;display:block;
+}
+.script-box .copy-btn{
+  margin-top:12px;font-family:'IBM Plex Mono';font-size:11px;padding:6px 12px;
+  border:1px solid var(--line-dim);background:transparent;color:var(--muted);cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;transition:all .12s;
+}
+.script-box .copy-btn:hover{border-color:var(--green);color:var(--green);}
+
 /* ---------- admin lead log ---------- */
 .admin-link{
   font-family:'IBM Plex Mono';font-size:10.5px;color:var(--muted-dark);background:none;border:none;
@@ -297,13 +337,176 @@ footer{padding:36px 0 50px;border-top:1px solid var(--line-dim);margin-top:20px;
 footer .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
 footer p{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted-dark);}
 
+/* hamburger / mobile nav */
+.hamburger{
+  display:none;background:none;border:1px solid var(--line-dim);color:var(--text-light);
+  font-size:18px;padding:6px 10px;cursor:pointer;line-height:1;
+}
+.links.mobile-open{
+  display:flex;flex-direction:column;gap:0;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(15,30,44,.97);z-index:200;align-items:center;justify-content:center;
+}
+.links.mobile-open a{font-size:22px;padding:14px 0;border-bottom:1px solid var(--line-dim);width:200px;text-align:center;}
+.mobile-nav-close{
+  position:absolute;top:20px;right:20px;background:none;border:none;color:var(--muted);
+  font-size:26px;cursor:pointer;
+}
+
+/* ===================== RESPONSIVE MOBILE ===================== */
+
+/* --- 860px: tablet landscape → break two-col grids --- */
 @media(max-width:860px){
   .hero-grid{grid-template-columns:1fr;}
-  .pipeline-row{grid-template-columns:1fr 1fr;row-gap:20px;}
-  .pnode:nth-child(2)::after{display:none;}
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .pipeline-row{grid-template-columns:1fr 1fr;row-gap:24px;}
+  .pnode:nth-child(2)::after,.pnode:nth-child(4)::after{display:none;}
   .match-top{grid-template-columns:1fr;}
-  .match-select{border-right:none;border-bottom:1px solid var(--line-dim);max-height:260px;}
+  .match-select{border-right:none;border-bottom:1px solid var(--line-dim);max-height:220px;}
   nav.links{display:none;}
+  .hamburger{display:block;}
+  .action-bar{flex-direction:column;gap:10px;}
+  .big-btn{min-width:0;width:100%;}
+  .form-row{grid-template-columns:1fr;}
+  .section-head{flex-direction:column;align-items:flex-start;}
+  .controls{width:100%;}
+  .controls input.search,.controls select.filt{width:100%;min-width:0;}
+  .buyer-grid{grid-template-columns:1fr;}
+  .modal{padding:22px 18px;}
+  .match-canvas{padding:18px;}
+  .type-toggle{flex-wrap:wrap;}
+  .type-toggle button{flex:1;min-width:80px;text-align:center;}
+}
+
+/* --- 600px: mobile portrait — full single column --- */
+@media(max-width:600px){
+  .wrap{padding:0 14px;}
+
+  /* header */
+  .nav{padding:12px 14px;gap:8px;}
+  .brand-text .t2{display:none;}
+  .auth-btn{font-size:10px;padding:6px 10px;}
+  .auth-signed{font-size:10px;}
+
+  /* hero */
+  section.hero{padding:32px 0 24px;}
+  .hero h1{font-size:32px;}
+  .hero p.lede{font-size:14px;}
+  .eyebrow{font-size:11px;}
+  .hero-stats{grid-template-columns:1fr 1fr;gap:1px;}
+  .stat .n{font-size:26px;}
+  .stat .l{font-size:9.5px;}
+
+  /* pipeline */
+  .pipeline{padding:18px 0;}
+  .pipeline-row{grid-template-columns:1fr;row-gap:16px;}
+  .pnode::after{display:none !important;}
+  .pnode{padding:0 0 16px;border-bottom:1px dashed var(--line-dim);}
+  .pnode:last-child{border-bottom:none;padding-bottom:0;}
+  .pnode .pn-t{font-size:17px;}
+
+  /* action bar */
+  .action-bar{padding:18px 0 4px;gap:10px;}
+  .big-btn{padding:14px 16px;gap:10px;}
+  .big-btn .bb-icon{width:36px;height:36px;font-size:17px;}
+  .big-btn .bb-t{font-size:16px;}
+  .big-btn .bb-s{font-size:10.5px;}
+
+  /* section heads */
+  section{padding:36px 0;}
+  .section-head h2{font-size:24px;}
+  .sh-sub{font-size:12px;}
+  .sync-tag{font-size:10px;}
+
+  /* property table — mobile card layout */
+  .paper-panel .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table{min-width:640px;font-size:12px;}
+  thead th{font-size:9.5px;padding:10px 10px 8px;}
+  tbody td{padding:10px;}
+  .callbtn{font-size:10.5px;padding:6px 8px;}
+  .callbtn.disabled,.callbtn.locked{font-size:10px;padding:5px 7px;}
+
+  /* buyer cards */
+  .buyer-grid{grid-template-columns:1fr;gap:10px;}
+  .buyer-card{padding:14px;}
+  .bc-name{font-size:17px;}
+  .bc-industry{font-size:10.5px;}
+  .bc-row{font-size:12px;}
+  .bc-foot{flex-direction:column;align-items:flex-start;gap:8px;}
+
+  /* match engine */
+  .match-shell{border:1px solid var(--line-dim);}
+  .match-top{grid-template-columns:1fr;}
+  .match-select{max-height:180px;padding:14px;}
+  .msel-item{padding:8px 10px;}
+  .msel-item .mi-t{font-size:12px;}
+  .msel-item .mi-s{font-size:10px;}
+  .match-canvas{padding:14px;}
+  .mc-title{font-size:18px;}
+  .mc-sub{font-size:10.5px;}
+  .match-line{grid-template-columns:16px 1fr;gap:10px;}
+  .node-dot::before{display:none;}
+  .ml-actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .ml-name{font-size:13.5px;}
+  .ml-sub{font-size:10.5px;}
+  .score-bar{width:100%;max-width:200px;}
+  .btn{font-size:11px;padding:7px 11px;}
+
+  /* budget leads */
+  .script-box{padding:14px 16px;}
+  .script-box p{font-size:12px;}
+  .lang-switch{gap:6px;}
+  .lang-btn{font-size:10px;padding:5px 10px;}
+  .checklist{grid-template-columns:1fr 1fr;gap:6px;}
+  .checklist span{font-size:10.5px;}
+
+  /* modals */
+  .modal-overlay{padding:12px;}
+  .modal{padding:20px 16px;max-height:90vh;}
+  .modal h3{font-size:18px;}
+  .m-meta{font-size:11px;}
+  .m-body{font-size:12.5px;}
+  .form-row{grid-template-columns:1fr;}
+  .form-row input,.form-row select,.form-row textarea{font-size:14px;padding:10px;}
+  .form-actions{gap:8px;}
+  .phone-prefix{font-size:14px;}
+  .type-toggle button{font-size:11px;padding:8px 10px;}
+
+  /* notice + footer */
+  .notice{font-size:12px;padding:14px 16px;}
+  footer{padding:24px 0 40px;}
+  footer .ft-row{flex-direction:column;align-items:flex-start;gap:6px;}
+  footer p{font-size:10px;}
+  .admin-link{font-size:10px;}
+
+  /* toast */
+  .toast{font-size:11.5px;padding:10px 16px;bottom:16px;left:14px;right:14px;width:auto;transform:translateY(10px);}
+  .toast.show{transform:translateY(0);}
+
+  /* admin panel */
+  .admin-panel{padding:16px;}
+  .admin-panel table{min-width:320px;}
+  .admin-panel thead th{font-size:9.5px;}
+  .admin-panel tbody td{font-size:11.5px;}
+
+  /* pills */
+  .pill{font-size:9px;padding:2px 6px;}
+
+  /* stats strip */
+  .hero-stats{margin-top:20px;}
+}
+
+/* --- 400px: very small phones (iPhone SE, Galaxy A) --- */
+@media(max-width:400px){
+  .nav{padding:10px 12px;}
+  .brand-text .t1{font-size:17px;}
+  .hero h1{font-size:27px;}
+  .stat .n{font-size:22px;}
+  .lang-btn{font-size:9.5px;padding:4px 8px;}
+  .big-btn .bb-t{font-size:14px;}
+  .buyer-card{padding:12px;}
+  .bc-name{font-size:15px;}
+  section{padding:28px 0;}
+  .section-head h2{font-size:21px;}
 }
 </style>
 </head>
@@ -318,13 +521,14 @@ footer p{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted-dark);}
         <div class="t2">MIDC INDUSTRIAL DEAL DESK</div>
       </div>
     </div>
-    <nav class="links">
-      <a href="#pipeline">Pipeline</a>
-      <a href="#inventory">Inventory</a>
-      <a href="#buyers">Buyers</a>
-      <a href="#budget">Budget Leads</a>
-      <a href="#matching">Matching</a>
+    <nav class="links" id="navLinks">
+      <a href="#pipeline" onclick="closeNav()">Pipeline</a>
+      <a href="#inventory" onclick="closeNav()">Inventory</a>
+      <a href="#buyers" onclick="closeNav()">Buyers</a>
+      <a href="#budget" onclick="closeNav()">Budget Leads</a>
+      <a href="#matching" onclick="closeNav()">Matching</a>
     </nav>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
     <div id="authArea"></div>
   </div>
 </header>
@@ -465,7 +669,8 @@ footer p{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted-dark);}
 
     <div class="script-box">
       <div class="sb-label">Call opening — use on every cold call in this tier</div>
-      <p>"Mala owner-direct urgent sale pahije. Industrial gala/shed, budget maximum ₹30 lakh. Bank auction/distress sale pan chalel. Bhosari, Chinchwad, Moshi, Chakan kiwa Talegaon. Broker property nako unless direct owner contact available."</p>
+      <div class="lang-switch" id="langSwitch"></div>
+      <p id="callScriptText"></p>
     </div>
 
     <div class="checklist">
@@ -1005,6 +1210,24 @@ async function renderAdminLog(){
   <div class="admin-note" style="margin-top:10px;">Source: ${source}.</div>`;
 }
 
+/* ================= HAMBURGER NAV ================= */
+function closeNav(){
+  document.getElementById("navLinks").classList.remove("mobile-open");
+  const btn = document.querySelector(".mobile-nav-close");
+  if(btn) btn.remove();
+}
+document.getElementById("hamburgerBtn").addEventListener("click",()=>{
+  const nav = document.getElementById("navLinks");
+  nav.classList.toggle("mobile-open");
+  if(nav.classList.contains("mobile-open")){
+    const close = document.createElement("button");
+    close.className = "mobile-nav-close";
+    close.textContent = "×";
+    close.onclick = closeNav;
+    nav.appendChild(close);
+  }
+});
+
 /* ================= AUTH STATE ================= */
 let isSignedIn = false;
 let signedInNumber = null;
@@ -1245,6 +1468,77 @@ function filterBudget(){
   const tier = document.getElementById("budgetTierFilter").value;
   const list = budgetLeads.filter(l=> !tier || l.tier===tier);
   renderBudgetTable(list);
+}
+
+/* ================= MULTILINGUAL CALL SCRIPT ================= */
+const callScripts = [
+  {
+    code:"mr", label:"मराठी", name:"Marathi",
+    text:`"मला owner-direct urgent sale पाहिजे. Industrial gala/shed, budget maximum ₹30 lakh. Bank auction/distress sale पण चालेल. भोसरी, चिंचवड, मोशी, चाकण किंवा तळेगाव. Broker property नको unless direct owner contact available."`
+  },
+  {
+    code:"hi", label:"हिंदी", name:"Hindi",
+    text:`"मुझे owner-direct urgent sale चाहिए। Industrial gala/shed चाहिए, budget maximum ₹30 lakh। Bank auction या distress sale भी चलेगा। भोसरी, चिंचवड, मोशी, चाकण या तळेगाव में। Broker की property नहीं चाहिए — जब तक direct owner का contact न मिले।"`
+  },
+  {
+    code:"en", label:"English", name:"English",
+    text:`"I'm looking for an owner-direct urgent sale. Industrial gala or shed, budget maximum ₹30 lakh. Bank auction or distress sale also works. Location: Bhosari, Chinchwad, Moshi, Chakan or Talegaon. No broker listings unless you can provide the direct owner's contact."`
+  },
+  {
+    code:"gu", label:"ગુજરાતી", name:"Gujarati",
+    text:`"મારે owner-direct urgent sale જોઈએ છે. Industrial gala/shed, budget maximum ₹30 lakh. Bank auction અથવા distress sale પણ ચાલશે. ભોसरी, ચિંચવડ, મોशी, ચाकण અથવા तळेगाव. Broker ની property ન ચાલે — direct owner નો contact ન આપે ત્યાં સુધી."`
+  },
+  {
+    code:"ta", label:"தமிழ்", name:"Tamil",
+    text:`"எனக்கு owner-direct urgent sale வேண்டும். Industrial gala அல்லது shed, budget maximum ₹30 lakh. Bank auction அல்லது distress sale ஆனாலும் பரவாயில்லை. Bhosari, Chinchwad, Moshi, Chakan அல்லது Talegaon பகுதியில். Direct owner தொடர்பு இல்லாமல் broker சொத்துக்கள் வேண்டாம்."`
+  },
+  {
+    code:"te", label:"తెలుగు", name:"Telugu",
+    text:`"నాకు owner-direct urgent sale కావాలి. Industrial gala లేదా shed, budget maximum ₹30 lakh. Bank auction లేదా distress sale కూడా పర్వాలేదు. Bhosari, Chinchwad, Moshi, Chakan లేదా Talegaon లో. Direct owner contact ఇవ్వలేకపోతే broker property వద్దు."`
+  },
+  {
+    code:"kn", label:"ಕನ್ನಡ", name:"Kannada",
+    text:`"ನನಗೆ owner-direct urgent sale ಬೇಕು. Industrial gala ಅಥವಾ shed, budget maximum ₹30 lakh. Bank auction ಅಥವಾ distress sale ಕೂಡ ಆಗುತ್ತದೆ. Bhosari, Chinchwad, Moshi, Chakan ಅಥವಾ Talegaon ನಲ್ಲಿ. Direct owner contact ಇಲ್ಲದ broker property ಬೇಡ."`
+  },
+  {
+    code:"bn", label:"বাংলা", name:"Bengali",
+    text:`"আমি owner-direct urgent sale খুঁজছি। Industrial gala বা shed, budget সর্বোচ্চ ₹30 লাখ। Bank auction বা distress sale-ও চলবে। Bhosari, Chinchwad, Moshi, Chakan বা Talegaon এলাকায়। Direct owner-এর contact ছাড়া broker property দরকার নেই।"`
+  },
+  {
+    code:"pa", label:"ਪੰਜਾਬੀ", name:"Punjabi",
+    text:`"ਮੈਨੂੰ owner-direct urgent sale ਚਾਹੀਦੀ ਹੈ। Industrial gala ਜਾਂ shed, budget ਵੱਧ ਤੋਂ ਵੱਧ ₹30 lakh। Bank auction ਜਾਂ distress sale ਵੀ ਚੱਲੇਗੀ। Bhosari, Chinchwad, Moshi, Chakan ਜਾਂ Talegaon ਵਿੱਚ। Direct owner ਦਾ contact ਦਿੱਤੇ ਬਿਨਾਂ broker property ਨਹੀਂ ਚਾਹੀਦੀ।"`
+  },
+  {
+    code:"ur", label:"اردو", name:"Urdu",
+    text:`"مجھے owner-direct urgent sale چاہیے۔ Industrial gala یا shed، budget زیادہ سے زیادہ ₹30 lakh۔ Bank auction یا distress sale بھی چلے گا۔ Bhosari, Chinchwad, Moshi, Chakan یا Talegaon میں۔ Broker کی property نہیں چاہیے — جب تک direct owner کا contact نہ ملے۔"`
+  },
+];
+let activeLang = "mr";
+
+function renderCallScript(){
+  const sw = document.getElementById("langSwitch");
+  const txt = document.getElementById("callScriptText");
+  if(!sw || !txt) return;
+
+  sw.innerHTML = callScripts.map(s=>
+    `<button class="lang-btn ${s.code===activeLang?'active':''}" data-lang="${s.code}">${s.label}</button>`
+  ).join("");
+
+  const active = callScripts.find(s=>s.code===activeLang) || callScripts[0];
+  txt.innerHTML = `<span class="lang-name">${active.name}</span>${active.text}
+    <br><button class="copy-btn" id="copyScriptBtn">⎘ Copy script</button>`;
+
+  sw.querySelectorAll(".lang-btn").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      activeLang = btn.dataset.lang;
+      renderCallScript();
+    });
+  });
+  document.getElementById("copyScriptBtn").addEventListener("click",()=>{
+    navigator.clipboard.writeText(active.text.replace(/^"|"$/g,'')).then(()=>{
+      showToast(`${active.name} script copied to clipboard.`);
+    }).catch(()=>showToast("Copy failed — select and copy manually."));
+  });
 }
 
 /* ================= MATCHING ENGINE ================= */
@@ -1599,8 +1893,8 @@ function init(){
   filterProps();
   renderBuyerGrid(buyers);
   renderBudgetTable(budgetLeads);
+  renderCallScript();
   renderMatchPropList();
-  renderMatchCanvas();
 
   document.getElementById("propSearch").addEventListener("input",filterProps);
   document.getElementById("propAreaFilter").addEventListener("change",filterProps);
