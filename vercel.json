@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/sandflow_deal_desk.html"
+      "destination": "/Landflow_deal_desk.html"
     }
   ]
 }
