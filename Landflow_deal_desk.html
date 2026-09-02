@@ -13,9 +13,11 @@
 body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
 a{text-decoration:none;color:inherit}
 .container{max-width:1180px;margin:auto;padding:0 20px}
+.container span{color:var(--primary)}
 nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .navin{height:70px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-weight:900;letter-spacing:-.5px;font-size:50px}.brand span{color:var(--primary)}
+.brand{font-weight:900;letter-spacing:-.5px;font-size:50px}
+.brand span{color:var(--primary)}
 .navlinks{display:flex;gap:10px;align-items:center}
 .navlinks a,.iconbtn{padding:10px 13px;border-radius:10px;border:0;color: var(--primary);background: var(--soft);cursor:pointer;font:inherit}
 .navlinks a:hover,.iconbtn:hover{background:var(--soft);color:var(--text)} 
@@ -106,7 +108,9 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted)}
 </div></section>
 </main>
 <hr>
-<footer><div class="container">© 2026 PropertyConnect • Direct industrial property leads • Bhosari & Chakan</div></footer>
+<footer><div class="container">© 2026 PropertyConnect • Direct industrial property leads • Bhosari & Chakan.  <span>Created By Dev. KUSHAL GOWD</span></div>
+</footer>
+
 
 <!-- <div class="modal" id="login"><div class="modalbox">
  <button class="close" onclick="closeLogin()">×</button><h3>Sign in with mobile</h3><p class="muted">Demo sign-in for this static website. Connect Firebase/Auth before using real OTP authentication.</p>
