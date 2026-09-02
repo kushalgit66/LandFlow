@@ -1,161 +1,1249 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1220">
-<title>LandFlow_Deal_Desk</title>
-<style>
-:root{--bg:#f5f7fb;--card:#fff;--text:#101828;--muted:#667085;--line:#e4e7ec;--primary:#2563eb;--primary2:#1d4ed8;--green:#16a34a;--soft:#eef4ff;--shadow:0 14px 40px rgba(16,24,40,.08)}
-[data-theme=dark]{--bg:#0b1220;--card:#111827;--text:#f8fafc;--muted:#98a2b3;--line:#263244;--primary:#60a5fa;--primary2:#3b82f6;--soft:#17233a;--shadow:0 16px 42px rgba(0,0,0,.28)}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PropertyConnect | Industrial Property Marketplace</title>
 
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-a{text-decoration:none;color:inherit}
-.container{max-width:1180px;margin:auto;padding:0 20px}
-.container span{color:var(--primary)}
-nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.navin{height:70px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-weight:900;letter-spacing:-.5px;font-size:50px}
-.brand span{color:var(--primary)}
-.navlinks{display:flex;gap:10px;align-items:center}
-.navlinks a,.iconbtn{padding:10px 13px;border-radius:10px;border:0;color: var(--primary);background: var(--soft);cursor:pointer;font:inherit}
-.navlinks a:hover,.iconbtn:hover{background:var(--soft);color:var(--text)} 
-.hero{padding:70px 0 42px;background:radial-gradient(circle at 10% 10%,rgba(37,99,235,.14),transparent 32%),radial-gradient(circle at 90% 20%,rgba(22,163,74,.10),transparent 28%)}
-.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:38px;align-items:center}
-.eyebrow{display:inline-flex;padding:7px 11px;border-radius:999px;background:var(--soft);color:var(--primary);font-size:13px;font-weight:800}
-.hero h1{font-size:clamp(38px,6vw,68px);line-height:.98;letter-spacing:-3px;margin:16px 0}
-.hero p{font-size:18px;line-height:1.65;color:var(--muted);max-width:650px}
-.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:13px;padding:13px 17px;font-weight:800;border:1px solid var(--line);cursor:pointer}
-.btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
-.btn.primary:hover{background:var(--primary2)}.btn.secondary{background:var(--card)}
-.hero-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
-.hero-card img{width:100%;height:260px;object-fit:cover;border-radius:18px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.stat{padding:14px;border:1px solid var(--line);border-radius:14px}
-.stat b{font-size:22px}
-.stat small{display:block;color:var(--muted);margin-top:3px}
-section{padding:55px 0}
-.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:22px}
-.section-head h2{font-size:32px;margin:0;letter-spacing:-1px}
-.section-head p{margin:7px 0 0;color:var(--muted)}
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-.input,.select{background:var(--card);border:1px solid var(--line);color:var(--text);padding:12px 13px;border-radius:12px;outline:none}.input{min-width:240px;flex:1}
-.select{min-width:150px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 5px 20px rgba(16,24,40,.04)}
-.tag{display:inline-block;font-size:12px;font-weight:800;padding:6px 9px;border-radius:999px;background:var(--soft);color:var(--primary)}
-.card h3{margin:13px 0 5px;font-size:19px}
-.muted{color:var(--muted)}
-.price{font-size:22px;font-weight:900;margin:10px 0}
-.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
-.meta div{padding:9px;border-radius:10px;background:var(--bg);font-size:13px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.call{background:var(--primary);color:#fff}.wa{background:var(--green);color:#fff}.disabled{opacity:.5;cursor:not-allowed}
-.notice{padding:13px 15px;border:1px dashed var(--line);border-radius:13px;background:var(--soft);color:var(--muted);font-size:13px;margin-bottom:18px}
-footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted)}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}
-.modal.open{display:flex}
-.modalbox{width:min(430px,100%);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
-.modalbox h3{margin-top:0}.modalbox input{width:100%;margin:8px 0 14px}.close{float:right;border:0;background:transparent;color:var(--muted);font-size:24px;cursor:pointer}
-@media(max-width:850px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}
-  .hero-card{display:none}}
-@media(max-width:600px){.navlinks a{display:none}.container{padding:0 15px}.hero{padding-top:45px}
-  .hero h1{letter-spacing:-2px}
-  .grid{grid-template-columns:1fr}
-  .section-head{display:block}
-  .stats{grid-template-columns:1fr 1fr 1fr}
-  .actions{grid-template-columns:1fr}
-  .filters>*{width:100%;min-width:0}}
+<style>
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #667085;
+    --primary: #123b63;
+    --primary2: #1d5d91;
+    --border: #e2e7ef;
+    --green: #16a34a;
+    --shadow: 0 10px 30px rgba(18, 59, 99, 0.08);
+}
+
+[data-theme="dark"] {
+    --bg: #0d1622;
+    --card: #142131;
+    --text: #f4f7fb;
+    --muted: #aeb9c8;
+    --primary: #4b94d1;
+    --primary2: #69aee5;
+    --border: #27384b;
+    --green: #25c45c;
+    --shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    transition: .25s;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.logo span {
+    color: #5b6778;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    padding: 9px 13px;
+    border-radius: 9px;
+}
+
+.nav-btn:hover {
+    border-color: var(--primary);
+}
+
+.welcome {
+    font-size: 14px;
+    color: var(--muted);
+    display: none;
+}
+
+.hero {
+    min-height: 570px;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(90deg, rgba(8,31,53,.94), rgba(8,31,53,.66)),
+        url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+}
+
+.hero-inner {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    padding: 80px 20px;
+    color: white;
+}
+
+.badge {
+    display: inline-block;
+    padding: 7px 12px;
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 50px;
+    background: rgba(255,255,255,.1);
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    max-width: 760px;
+    font-size: clamp(38px, 6vw, 66px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 680px;
+    color: #dce8f4;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    border: 0;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.primary-btn {
+    background: white;
+    color: #123b63;
+}
+
+.secondary-btn {
+    background: #123b63;
+    color: white;
+    border: 1px solid rgba(255,255,255,.4);
+}
+
+.trust-row {
+    max-width: 1200px;
+    margin: -35px auto 0;
+    position: relative;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.trust-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.trust-card strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.trust-card small {
+    color: var(--muted);
+}
+
+.section {
+    max-width: 1200px;
+    margin: auto;
+    padding: 70px 20px;
+}
+
+.section-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.section-header h2 {
+    font-size: 32px;
+}
+
+.section-header p {
+    color: var(--muted);
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 10px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 18px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card-top {
+    padding: 20px;
+}
+
+.type {
+    display: inline-block;
+    background: rgba(29,93,145,.1);
+    color: var(--primary);
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    margin-bottom: 7px;
+}
+
+.location {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 23px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.details {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.owner {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+}
+
+.owner span {
+    color: var(--muted);
+}
+
+.card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--border);
+}
+
+.card-actions a {
+    text-decoration: none;
+    text-align: center;
+    padding: 13px;
+    font-weight: 700;
+}
+
+.call {
+    color: var(--primary);
+}
+
+.whatsapp {
+    background: var(--green);
+    color: white;
+}
+
+.empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    display: none;
+}
+
+footer {
+    background: #0b1725;
+    color: #cbd5e1;
+    padding: 45px 20px;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+footer strong {
+    color: white;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 999;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 430px;
+    background: var(--card);
+    color: var(--text);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.3);
+}
+
+.modal-box h2 {
+    margin-bottom: 8px;
+}
+
+.modal-box p {
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 13px;
+    border: 0;
+    border-radius: 9px;
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.close {
+    float: right;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 24px;
+}
+
+@media(max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .trust-row {
+        grid-template-columns: 1fr;
+        margin-top: 20px;
+    }
+}
+
+@media(max-width: 650px) {
+    .navbar {
+        padding: 12px 14px;
+    }
+
+    .welcome {
+        display: none !important;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .hero {
+        min-height: 520px;
+    }
+
+    .hero-inner {
+        padding: 60px 18px;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 50px 15px;
+    }
+
+    .section-header {
+        display: block;
+    }
+
+    .section-header h2 {
+        margin-bottom: 5px;
+    }
+
+    .nav-btn {
+        padding: 8px 9px;
+        font-size: 12px;
+    }
+}
 </style>
 </head>
-<body>
-<nav><div class="container navin">
-  <a class="brand" href="#home">Land<span>Flow</span></a>
-  <div class="navlinks">
-    <a href="#buyers">Buyers</a><a href="#sellers">Sellers</a>
-    <button class="iconbtn" id="themeBtn" title="Toggle theme">☾</button>
-    <!-- <button class="btn primary" onclick="openLogin()">Sign in</button> -->
-  </div>
-</div></nav>
 
-<main id="home">
-<section class="hero"><div class="container hero-grid">
-  <div>
-    <span class="eyebrow">Bhosari • Bhosari MIDC • Chakan</span>
-    <h1>Land finds the <em>buyer.</em><br>Not the other way round.</h1>
-    <p>Find industrial galas, sheds, factories, plots and warehouses from ₹20 lakh to ₹10 crore. Contact buyers and sellers directly — no NoBroker listings and no broker profiles in this directory.</p>
-    <div class="buttons">
-      <a class="btn primary" href="#buyers">Find Buyers →</a>
-      <a class="btn secondary" href="#sellers">View Sellers →</a>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            Property<span>Connect</span>
+        </div>
+
+        <div class="nav-actions">
+            <div class="welcome" id="welcomeText"></div>
+            <button class="nav-btn" onclick="toggleTheme()">☼ / ☾</button>
+            <button class="nav-btn" id="loginBtn" onclick="openLogin()">Sign In</button>
+        </div>
+    </nav>
+</header>
+
+
+<!-- HOME -->
+<section class="hero" id="home">
+    <div class="hero-inner">
+
+        <div class="badge">Industrial Property • Pune Region</div>
+
+        <h1>Find the right industrial property with confidence.</h1>
+
+        <p>
+            Connect with industrial property sellers and potential business buyers
+            around Bhosari, Bhosari MIDC and Chakan.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="primary-btn" onclick="showSection('buyers')">
+                Find Buyers
+            </button>
+
+            <button class="secondary-btn" onclick="showSection('sellers')">
+                View Sellers
+            </button>
+        </div>
+
     </div>
-  </div>
-  <div class="hero-card">
-    <img src="https://images.unsplash.com/photo-1565610222536-ef125c59da2e?auto=format&fit=crop&w=1000&q=80" alt="Industrial warehouse">
-    <div class="stats"><div class="stat"><b>₹20L</b><small>Starting</small></div><div class="stat"><b>₹10Cr</b><small>Ceiling</small></div><div class="stat"><b>3</b><small>Core areas</small></div></div>
-  </div>
-</div></section>
-<hr>
-<section id="buyers"><div class="container">
-  <div class="section-head"><div><h2>Potential buyers</h2><p>Businesses worth approaching for industrial space.</p></div></div>
-  <div class="notice">Buyer leads are prospects, not confirmed purchasers. Public business contacts are shown where available. Replace/add verified numbers before publishing.</div>
-  <div class="filters"><input id="buyerSearch" class="input" placeholder="Search buyer, business type or area…"><select id="buyerArea" class="select"><option value="">All areas</option><option>Bhosari</option><option>Bhosari MIDC</option><option>Chakan</option><option>Kuruli</option></select></div>
-  <div id="buyerGrid" class="grid"></div>
-</div></section>
-<hr>
-<section id="sellers"><div class="container">
-  <div class="section-head"><div><h2>Seller properties</h2><p>Owner-listed leads from the earlier search.</p></div></div>
-  <div class="notice">Only leads previously identified as owner/contact-owner are included. Masked phone numbers are intentionally not guessed. Use the source listing to reveal the number where the site provides it.</div>
-  <div class="filters"><input id="sellerSearch" class="input" placeholder="Search seller, property type or area…"><select id="sellerType" class="select"><option value="">All property types</option><option>Industrial shed</option><option>Industrial building</option><option>Industrial gala</option></select></div>
-  <div id="sellerGrid" class="grid"></div>
-</div></section>
-</main>
-<hr>
-<footer><div class="container">© 2026 PropertyConnect • Direct industrial property leads • Bhosari & Chakan.  <span>Created By Dev. KUSHAL GOWD</span></div>
+</section>
+
+
+<!-- TRUST -->
+<div class="trust-row">
+
+    <div class="trust-card">
+        <strong>Direct-contact focus</strong>
+        <small>Designed around direct owner and business contacts.</small>
+    </div>
+
+    <div class="trust-card">
+        <strong>Clear pricing</strong>
+        <small>Properties organized from lakh to crore ranges.</small>
+    </div>
+
+    <div class="trust-card">
+        <strong>Business-first</strong>
+        <small>Industrial sheds, factories, galas, land and warehouses.</small>
+    </div>
+
+</div>
+
+
+<!-- BUYERS -->
+<section class="section" id="buyers">
+
+    <div class="section-header">
+        <div>
+            <h2>Potential Buyers</h2>
+            <p>Businesses you can contact regarding industrial properties.</p>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="buyerSearch"
+            placeholder="Search buyer, location or industry..."
+            oninput="filterBuyers()"
+        >
+    </div>
+
+    <div class="cards" id="buyerCards"></div>
+
+    <div class="empty" id="buyerEmpty">
+        No matching buyers found.
+    </div>
+
+</section>
+
+
+<!-- SELLERS -->
+<section class="section" id="sellers">
+
+    <div class="section-header">
+        <div>
+            <h2>Industrial Properties</h2>
+            <p>Seller leads around Bhosari and Chakan.</p>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="sellerSearch"
+            placeholder="Search location, property type or price..."
+            oninput="filterSellers()"
+        >
+    </div>
+
+    <div class="cards" id="sellerCards"></div>
+
+    <div class="empty" id="sellerEmpty">
+        No matching properties found.
+    </div>
+
+</section>
+
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            <strong>PropertyConnect</strong>
+            <p>Industrial property connections made simpler.</p>
+        </div>
+
+        <div>
+            <p>Bhosari • Bhosari MIDC • Chakan</p>
+            <p>© 2026 PropertyConnect</p>
+        </div>
+    </div>
 </footer>
 
 
-<!-- <div class="modal" id="login"><div class="modalbox">
- <button class="close" onclick="closeLogin()">×</button><h3>Sign in with mobile</h3><p class="muted">Demo sign-in for this static website. Connect Firebase/Auth before using real OTP authentication.</p>
-<input id="phone" class="input" placeholder="+91 98XXXXXXXX" inputmode="tel"><button class="btn primary" style="width:100%" onclick="demoLogin()">Continue</button><p id="loginMsg" class="muted"></p> 
-</div></div> -->
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeLogin()">×</button>
+
+        <h2>Welcome</h2>
+
+        <p>
+            Enter your name to continue.
+        </p>
+
+        <form onsubmit="loginUser(event)">
+
+            <div class="form-group">
+                <label>First Name</label>
+                <input
+                    id="firstName"
+                    type="text"
+                    placeholder="First name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <input
+                    id="lastName"
+                    type="text"
+                    placeholder="Last name"
+                    required
+                >
+            </div>
+
+            <button class="form-submit" type="submit">
+                Continue
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
 
 <script>
-const buyers=[
- {name:"Naomi Manufacturing India Pvt Ltd",area:"Bhosari",type:"Manufacturing",why:"Manufacturing business; possible requirement for additional industrial space.",phone:"+91 85302 34569",url:"https://www.google.com/search?q=Naomi+Manufacturing+India+Pvt+Ltd+Bhosari"},
- {name:"Padmatech Industries Pvt Ltd — Unit II",area:"Bhosari MIDC",type:"Industrial equipment",why:"Industrial equipment operation; potential shed/factory requirement.",phone:"+91 91461 40044",url:"https://www.google.com/search?q=Padmatech+Industries+Bhosari"},
- {name:"PVR Industries",area:"Bhosari MIDC",type:"Mechanical manufacturing",why:"Mechanical manufacturing; relevant end-user prospect.",phone:"+91 95610 17343",url:"https://www.google.com/search?q=PVR+Industries+Bhosari+MIDC"},
- {name:"Autoline Industries Ltd — Chakan",area:"Chakan",type:"Auto components",why:"Auto-component manufacturing; potential expansion/industrial-space requirement.",phone:"020 3566 4864",url:"https://www.google.com/search?q=Autoline+Industries+Chakan"},
- {name:"GENIE AUTO PRODUCTS PVT LTD",area:"Chakan MIDC",type:"Auto products",why:"Auto-products manufacturing; relevant industrial property prospect.",phone:"+91 95455 18405",url:"https://www.google.com/search?q=GENIE+AUTO+PRODUCTS+Chakan"},
- {name:"Renuka Auto Components",area:"Kuruli / Chakan",type:"Auto components",why:"Pressure die casting, aluminium die casting and CNC/VMC machining.",phone:"+91 86989 64100",url:"https://www.google.com/search?q=Renuka+Auto+Components+Kuruli+Chakan"},
- {name:"HGT Logistics & Transport Chakan",area:"Chakan",type:"Logistics",why:"Logistics operator; potential warehouse/shed buyer.",phone:"+91 82630 35126",url:"https://www.google.com/search?q=HGT+Logistics+Transport+Chakan"},
- {name:"FM Logistic India — Chakan",area:"Chakan MIDC",type:"Logistics / warehouse",why:"Logistics and warehousing operator; relevant warehouse/shed prospect.",phone:"+91 96576 19584",url:"https://www.google.com/search?q=FM+Logistic+India+Chakan"},
- {name:"Jyoti Heat Treatment",area:"Bhosari MIDC / Chakan",type:"Heat treatment / manufacturing",why:"Industrial operator with plants in the corridor; potential expansion prospect.",phone:"See official site",url:"https://jyotihtgroup.com/our-infrastructure/"},
- {name:"Sumeco Group",area:"Bhosari MIDC",type:"Manufacturing",why:"Manufacturing group with units in Bhosari MIDC; potential industrial-space prospect.",phone:"See official site",url:"https://sumecogroup.in/contact.php"}
-];
-const sellers=[
- {name:"Divya Sharma",area:"Bhosari — Vikas Colony, Landewadi",type:"Industrial shed",size:"1,200 sq ft",price:"₹80 Lakh",phone:"+91-86XXXXXXXX",url:"https://www.magicbricks.com/propertyDetails/1200-Sq-ft-Industrial-Shed-FOR-Sale-in-Pune%26id%3D4d423832373039353031"},
- {name:"Sanchit",area:"Bhosari — Landewadi",type:"Industrial shed",size:"2,750 sq ft",price:"₹53.6 Lakh",phone:"Masked — source listing",url:"https://www.magicbricks.com/industrial-shed-for-sale-in-bhosari-telco-road-pune-pppfs"},
- {name:"Ramesh",area:"Bhosari",type:"Industrial building",size:"2,000 sq ft",price:"₹1 Crore",phone:"+91-98XXXXXXXX",url:"https://www.magicbricks.com/propertyDetails/2000-Sq-ft-Industrial-Building-FOR-Sale-Bhosari-in-Pune%26id%3D4d423739303131353631"},
- {name:"Ashish Khandelwal",area:"Bhosari — Landewadi",type:"Industrial shed",size:"2,750 sq ft",price:"₹1.20 Cr",phone:"Source listing",url:"https://www.magicbricks.com/propertyDetails/2750-Sq-ft-Industrial-Shed-FOR-Sale-Landewadi-in-Pune%26id%3D4d423638303338363337"}
+
+/* =========================
+   BUYERS
+========================= */
+
+const buyers = [
+
+    {
+        name: "Naomi Manufacturing India Pvt Ltd",
+        location: "Bhosari",
+        industry: "Manufacturing",
+        phone: "918530234569"
+    },
+
+    {
+        name: "Padmatech Industries Pvt Ltd - Unit II",
+        location: "Bhosari MIDC",
+        industry: "Industrial Equipment",
+        phone: "919146140044"
+    },
+
+    {
+        name: "PVR INDUSTRiES",
+        location: "Bhosari MIDC",
+        industry: "Mechanical Plant",
+        phone: "919561017343"
+    },
+
+    {
+        name: "Autoline Industries Ltd. Plant",
+        location: "Chakan / Nanekarwadi",
+        industry: "Automotive Manufacturing",
+        phone: "912035664864"
+    },
+
+    {
+        name: "GENIE AUTO PRODUCTS PVT LTD",
+        location: "Chakan MIDC Phase II",
+        industry: "Automotive",
+        phone: "919545518405"
+    },
+
+    {
+        name: "Renuka Auto Components",
+        location: "Kuruli / Chakan",
+        industry: "Auto Components",
+        phone: "918698964100"
+    },
+
+    {
+        name: "HGT Logistics and Transport",
+        location: "Chakan",
+        industry: "Logistics",
+        phone: "918263035126"
+    },
+
+    {
+        name: "FM Logistic India",
+        location: "Chakan MIDC Phase II",
+        industry: "Logistics / Warehouse",
+        phone: "919657619584"
+    },
+
+    {
+        name: "Jyoti Heat Treatment Group",
+        location: "Bhosari / Chakan",
+        industry: "Heat Treatment / Manufacturing",
+        phone: "919422030676"
+    },
+
+    {
+        name: "Sumeco Group of Companies",
+        location: "Bhosari MIDC",
+        industry: "Engineering / Manufacturing",
+        phone: "919158897625"
+    },
+
+    {
+        name: "Technomech Engineering",
+        location: "Bhosari / Chakan",
+        industry: "Engineering",
+        phone: "919881475152"
+    },
+
+    {
+        name: "Siddwin Precision",
+        location: "Bhosari MIDC",
+        industry: "Precision Manufacturing",
+        phone: "918668398828"
+    },
+
+    {
+        name: "Rasco Industries",
+        location: "Chakan Industrial Area",
+        industry: "Industrial Manufacturing",
+        phone: "919970152785"
+    },
+
+    {
+        name: "Metal Form Industries",
+        location: "Bhosari MIDC",
+        industry: "Metal Manufacturing",
+        phone: "919008847672"
+    },
+
+    {
+        name: "S.K. Industries",
+        location: "Bhosari / Chakan",
+        industry: "Industrial Manufacturing",
+        phone: "919011340371"
+    },
+
+    {
+        name: "Faurecia Clean Mobility / ANAND",
+        location: "Bhosari / Chakan",
+        industry: "Automotive",
+        phone: "912030683924"
+    },
+
+    {
+        name: "Belrise Industries",
+        location: "Chakan",
+        industry: "Automotive",
+        phone: "919881150575"
+    },
+
+    {
+        name: "Sharda Motor Industries Ltd",
+        location: "Chakan MIDC",
+        industry: "Automotive",
+        phone: "912135674400"
+    },
+
+    {
+        name: "Yusen Logistics India",
+        location: "Chakan Talegaon Road",
+        industry: "Logistics",
+        phone: "912248864000"
+    },
+
+    {
+        name: "Anandji Haridas & Company",
+        location: "Chakan / Kharabwadi",
+        industry: "Industrial Business",
+        phone: "919820346176"
+    },
+
+    {
+        name: "Deshmukh Industries",
+        location: "Bhosari MIDC",
+        industry: "Industrial Manufacturing",
+        phone: "919975500003"
+    },
+
+    {
+        name: "Phoenix Industries",
+        location: "Bhosari MIDC",
+        industry: "Industrial Manufacturing",
+        phone: "918380099801"
+    }
+
 ];
 
-function wa(phone,name){const digits=(phone||"").replace(/\D/g,""); return digits.length>=10?`https://wa.me/${digits}?text=${encodeURIComponent("Hello "+name+", I found your industrial property/business contact on PropertyConnect. I would like to discuss a property requirement.")}`:"#";}
-function renderBuyers(){
- const q=document.getElementById("buyerSearch").value.toLowerCase(), a=document.getElementById("buyerArea").value;
- document.getElementById("buyerGrid").innerHTML=buyers.filter(x=>(!a||x.area.includes(a))&&JSON.stringify(x).toLowerCase().includes(q)).map(x=>`
- <article class="card"><span class="tag">${x.type}</span><h3>${x.name}</h3><div class="muted">${x.area}</div><p class="muted">${x.why}</p><div class="meta"><div><b>Budget</b><br>₹20L–₹10Cr</div><div><b>Contact</b><br>${x.phone}</div></div><div class="actions"><a class="btn call ${x.phone.includes("See")?"disabled":""}" ${x.phone.includes("See")?"":"href='tel:"+x.phone.replace(/[^+\\d]/g,"")+"'"}>☎ Call</a><a class="btn wa" href="${wa(x.phone,x.name)}" target="_blank">◉ WhatsApp</a></div><a class="muted" style="display:block;margin-top:12px;font-size:13px" href="${x.url}" target="_blank">Open business/source ↗</a></article>`).join("");
-}
-function renderSellers(){
- const q=document.getElementById("sellerSearch").value.toLowerCase(), t=document.getElementById("sellerType").value;
- document.getElementById("sellerGrid").innerHTML=sellers.filter(x=>(!t||x.type===t)&&JSON.stringify(x).toLowerCase().includes(q)).map(x=>`
- <article class="card"><span class="tag">${x.type}</span><h3>${x.name}</h3><div class="muted">${x.area}</div><div class="price">${x.price}</div><div class="meta"><div><b>Size</b><br>${x.size}</div><div><b>Phone</b><br>${x.phone}</div></div><div class="actions"><a class="btn call ${x.phone.includes("Masked")||x.phone.includes("Source")?"disabled":""}" ${x.phone.includes("Masked")||x.phone.includes("Source")?"":"href='tel:"+x.phone.replace(/[^+\\d]/g,"")+"'"}>☎ Call</a><a class="btn wa ${x.phone.includes("Masked")||x.phone.includes("Source")?"disabled":""}" href="${wa(x.phone,x.name)}" target="_blank">◉ WhatsApp</a></div><a class="muted" style="display:block;margin-top:12px;font-size:13px" href="${x.url}" target="_blank">Open source listing ↗</a></article>`).join("");
-}
-["buyerSearch","buyerArea"].forEach(id=>document.getElementById(id).addEventListener("input",renderBuyers));
-["sellerSearch","sellerType"].forEach(id=>document.getElementById(id).addEventListener("input",renderSellers));
-renderBuyers();renderSellers();
 
-const saved=localStorage.getItem("theme"); if(saved)document.documentElement.dataset.theme=saved;
-document.getElementById("themeBtn").onclick=()=>{const dark=document.documentElement.dataset.theme==="dark";document.documentElement.dataset.theme=dark?"light":"dark";localStorage.setItem("theme",dark?"light":"dark");};
-function openLogin(){document.getElementById("login").classList.add("open")}
-function closeLogin(){document.getElementById("login").classList.remove("open")}
-function demoLogin(){const p=document.getElementById("phone").value.trim();document.getElementById("loginMsg").textContent=p?"Demo sign-in ready for "+p+". Add Firebase/Supabase OTP for production.":"Please enter a mobile number."}
+/* =========================
+   SELLERS
+========================= */
+
+const sellers = [
+
+    {
+        owner: "Divya Sharma",
+        property: "Industrial Shed",
+        location: "Landewadi, Bhosari",
+        area: "1,200 sq ft",
+        price: "₹80 Lakh",
+        phone: "9186XXXXXXXX"
+    },
+
+    {
+        owner: "Sanchit",
+        property: "Industrial Shed / Factory Land",
+        location: "Landewadi, Bhosari",
+        area: "2,750 sq ft",
+        price: "₹53.6 Lakh",
+        phone: "91XXXXXXXXXX"
+    },
+
+    {
+        owner: "Ramesh",
+        property: "Industrial Building",
+        location: "Bhosari",
+        area: "2,000 sq ft",
+        price: "₹1 Crore",
+        phone: "9198XXXXXXXX"
+    },
+
+    {
+        owner: "Ashish Khandelwal",
+        property: "Industrial Shed",
+        location: "Landewadi, Bhosari",
+        area: "2,750 sq ft",
+        price: "₹1.20 Crore",
+        phone: "91XXXXXXXXXX"
+    },
+
+    {
+        owner: "Sharad",
+        property: "Commercial Industrial Gala",
+        location: "Sector 7, Bhosari",
+        area: "763 sq ft + Mezzanine",
+        price: "₹1.50 Crore",
+        phone: "9198XXXXXXXX"
+    },
+
+    {
+        owner: "Chandrashekhar",
+        property: "Industrial Shed",
+        location: "Chakan",
+        area: "12,000 sq ft",
+        price: "₹2.25 Crore",
+        phone: "9176XXXXXXXX"
+    },
+
+    {
+        owner: "Bharath",
+        property: "Industrial Shed",
+        location: "Chakan",
+        area: "20,500 sq ft",
+        price: "₹11 Crore",
+        phone: "9173XXXXXXXX"
+    },
+
+    {
+        owner: "Rahul",
+        property: "Industrial Shed / Factory Land",
+        location: "Chakan",
+        area: "75,000 sq ft",
+        price: "Price on Contact",
+        phone: "91XXXXXXXXXX"
+    },
+
+    {
+        owner: "D B Gawade",
+        property: "Industrial Land",
+        location: "Chakan MIDC Phase IV",
+        area: "10,172 sq ft",
+        price: "Negotiable",
+        phone: "91XXXXXXXXXX"
+    },
+
+    {
+        owner: "Kiran Kamble",
+        property: "Factory / Industrial Shed",
+        location: "Bhosari MIDC",
+        area: "1,800 sq ft",
+        price: "Price on Contact",
+        phone: "91XXXXXXXXXX"
+    }
+
+];
+
+
+/* =========================
+   BUYER DISPLAY
+========================= */
+
+function renderBuyers(list = buyers) {
+
+    const container = document.getElementById("buyerCards");
+
+    container.innerHTML = "";
+
+    list.forEach(buyer => {
+
+        const tel = buyer.phone;
+
+        container.innerHTML += `
+
+            <article class="card buyer-item">
+
+                <div class="card-top">
+
+                    <span class="type">Potential Buyer</span>
+
+                    <h3>${buyer.name}</h3>
+
+                    <div class="location">
+                        📍 ${buyer.location}
+                    </div>
+
+                    <div class="details">
+                        Industry: ${buyer.industry}
+                    </div>
+
+                </div>
+
+                <div class="card-actions">
+
+                    <a class="call" href="tel:+${tel}">
+                        ☎ Call
+                    </a>
+
+                    <a
+                        class="whatsapp"
+                        href="https://wa.me/${tel}"
+                        target="_blank"
+                    >
+                        WhatsApp
+                    </a>
+
+                </div>
+
+            </article>
+        `;
+    });
+
+    document.getElementById("buyerEmpty").style.display =
+        list.length ? "none" : "block";
+}
+
+
+/* =========================
+   SELLER DISPLAY
+========================= */
+
+function renderSellers(list = sellers) {
+
+    const container = document.getElementById("sellerCards");
+
+    container.innerHTML = "";
+
+    list.forEach(seller => {
+
+        const tel = seller.phone;
+
+        container.innerHTML += `
+
+            <article class="card seller-item">
+
+                <div class="card-top">
+
+                    <span class="type">${seller.property}</span>
+
+                    <h3>${seller.price}</h3>
+
+                    <div class="location">
+                        📍 ${seller.location}
+                    </div>
+
+                    <div class="details">
+                        Area: ${seller.area}
+                    </div>
+
+                    <div class="owner">
+                        Owner: <strong>${seller.owner}</strong>
+                        <br>
+                        <span>Direct-contact listing</span>
+                    </div>
+
+                </div>
+
+                <div class="card-actions">
+
+                    <a class="call" href="tel:+${tel}">
+                        ☎ Call
+                    </a>
+
+                    <a
+                        class="whatsapp"
+                        href="https://wa.me/${tel}"
+                        target="_blank"
+                    >
+                        WhatsApp
+                    </a>
+
+                </div>
+
+            </article>
+        `;
+    });
+
+    document.getElementById("sellerEmpty").style.display =
+        list.length ? "none" : "block";
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function filterBuyers() {
+
+    const query =
+        document.getElementById("buyerSearch")
+        .value
+        .toLowerCase();
+
+    const filtered = buyers.filter(buyer =>
+        (
+            buyer.name +
+            buyer.location +
+            buyer.industry
+        )
+        .toLowerCase()
+        .includes(query)
+    );
+
+    renderBuyers(filtered);
+}
+
+
+function filterSellers() {
+
+    const query =
+        document.getElementById("sellerSearch")
+        .value
+        .toLowerCase();
+
+    const filtered = sellers.filter(seller =>
+        (
+            seller.owner +
+            seller.property +
+            seller.location +
+            seller.area +
+            seller.price
+        )
+        .toLowerCase()
+        .includes(query)
+    );
+
+    renderSellers(filtered);
+}
+
+
+/* =========================
+   SECTION NAVIGATION
+========================= */
+
+function showSection(id) {
+
+    document.getElementById(id)
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+}
+
+
+/* =========================
+   THEME
+========================= */
+
+function toggleTheme() {
+
+    const current =
+        document.documentElement
+        .getAttribute("data-theme");
+
+    const next =
+        current === "dark"
+        ? "light"
+        : "dark";
+
+    document.documentElement
+        .setAttribute("data-theme", next);
+
+    localStorage.setItem("theme", next);
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function openLogin() {
+    document
+        .getElementById("loginModal")
+        .classList.add("show");
+}
+
+
+function closeLogin() {
+    document
+        .getElementById("loginModal")
+        .classList.remove("show");
+}
+
+
+function loginUser(event) {
+
+    event.preventDefault();
+
+    const first =
+        document.getElementById("firstName")
+        .value
+        .trim();
+
+    const last =
+        document.getElementById("lastName")
+        .value
+        .trim();
+
+    const fullName =
+        `${first} ${last}`;
+
+    localStorage.setItem(
+        "propertyConnectName",
+        fullName
+    );
+
+    showWelcome(fullName);
+
+    closeLogin();
+}
+
+
+function showWelcome(name) {
+
+    const welcome =
+        document.getElementById("welcomeText");
+
+    const login =
+        document.getElementById("loginBtn");
+
+    welcome.textContent =
+        `Welcome Sir, ${name}`;
+
+    welcome.style.display = "block";
+
+    login.textContent = "Change Name";
+}
+
+
+/* =========================
+   STARTUP
+========================= */
+
+const savedTheme =
+    localStorage.getItem("theme");
+
+if (savedTheme) {
+    document.documentElement
+        .setAttribute("data-theme", savedTheme);
+}
+
+const savedName =
+    localStorage.getItem("propertyConnectName");
+
+if (savedName) {
+    showWelcome(savedName);
+}
+
+renderBuyers();
+renderSellers();
+
+
+/* Close modal by clicking outside */
+
+document
+    .getElementById("loginModal")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+            closeLogin();
+        }
+
+    });
+
 </script>
-</body></html>
+
+</body>
+</html>
