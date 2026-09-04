@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LandFlow | Industrial Property Marketplace</title>
+<title>LandFlow | Premium Industrial Property Connections</title>
 
 <style>
 :root {
@@ -489,6 +489,145 @@ footer strong {
         font-size: 12px;
     }
 }
+
+/* ===== PREMIUM LANDING / UX UPGRADE ===== */
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+body::before {
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      radial-gradient(circle at 10% 10%, rgba(47,115,178,.08), transparent 28%),
+      radial-gradient(circle at 90% 30%, rgba(22,163,74,.05), transparent 25%);
+}
+.navbar { min-height: 72px; }
+.logo { letter-spacing:-.5px; }
+.logo::before {
+    content:"◆"; font-size:11px; margin-right:7px; vertical-align:3px;
+}
+.nav-link {
+    border:0; background:transparent; color:var(--muted); padding:9px 10px;
+    border-radius:9px; font-weight:600;
+}
+.nav-link:hover { color:var(--primary); background:rgba(29,93,145,.07); }
+.hero { position:relative; overflow:hidden; }
+.hero::after {
+    content:""; position:absolute; width:420px; height:420px; right:-120px; top:-140px;
+    border:1px solid rgba(255,255,255,.12); border-radius:50%;
+    box-shadow:0 0 0 60px rgba(255,255,255,.025), 0 0 0 120px rgba(255,255,255,.02);
+    animation:floatOrb 10s ease-in-out infinite;
+}
+.hero-inner { animation:heroIn .9s ease both; }
+.hero h1 { letter-spacing:-2px; }
+.badge { backdrop-filter:blur(10px); animation:fadeUp .7s ease .1s both; }
+.hero h1 { animation:fadeUp .7s ease .2s both; }
+.hero p { animation:fadeUp .7s ease .3s both; }
+.hero-buttons { animation:fadeUp .7s ease .4s both; }
+.primary-btn,.secondary-btn,.nav-btn,.form-submit {
+    transition:transform .2s, box-shadow .2s, background .2s;
+}
+.primary-btn:hover,.secondary-btn:hover,.form-submit:hover,.nav-btn:hover {
+    transform:translateY(-2px); box-shadow:0 10px 24px rgba(18,59,99,.18);
+}
+.trust-card, .card {
+    animation:fadeUp .55s ease both;
+}
+.trust-card:nth-child(2), .card:nth-child(2) { animation-delay:.08s; }
+.trust-card:nth-child(3), .card:nth-child(3) { animation-delay:.16s; }
+.section { position:relative; }
+.section-header h2 { letter-spacing:-.7px; }
+.section-kicker {
+    display:inline-flex; align-items:center; gap:7px; color:var(--primary);
+    font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:1.1px;
+    margin-bottom:7px;
+}
+.section-kicker::before { content:""; width:24px; height:2px; background:var(--primary); }
+.quick-grid {
+    display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:20px;
+}
+.quick-card {
+    border:1px solid var(--border); background:linear-gradient(135deg,var(--card),rgba(29,93,145,.04));
+    border-radius:18px; padding:24px; box-shadow:var(--shadow); cursor:pointer;
+    transition:.25s; position:relative; overflow:hidden;
+}
+.quick-card:hover { transform:translateY(-5px); border-color:rgba(29,93,145,.35); }
+.quick-icon {
+    width:45px;height:45px;border-radius:13px;display:grid;place-items:center;
+    background:rgba(29,93,145,.1); font-size:21px; margin-bottom:14px;
+}
+.quick-card h3 { margin-bottom:6px; }
+.quick-card p { color:var(--muted); font-size:14px; }
+.post-section {
+    background:linear-gradient(135deg,rgba(18,59,99,.04),rgba(22,163,74,.035));
+}
+.post-wrap {
+    display:grid; grid-template-columns:.8fr 1.2fr; gap:25px; align-items:stretch;
+}
+.post-intro {
+    background:linear-gradient(145deg,#0c2946,#123b63);
+    color:#fff; border-radius:20px; padding:32px; box-shadow:var(--shadow);
+    position:relative; overflow:hidden;
+}
+.post-intro::after {
+    content:""; position:absolute; width:220px;height:220px;border:1px solid rgba(255,255,255,.15);
+    border-radius:50%;right:-80px;bottom:-90px;
+}
+.post-intro p { color:#d9e7f4; margin-top:10px; }
+.post-points { margin-top:25px; display:grid; gap:12px; }
+.post-point { display:flex; gap:10px; font-size:14px; }
+.post-point b { color:#8bd7a6; }
+.form-card {
+    background:var(--card); border:1px solid var(--border); border-radius:20px;
+    padding:25px; box-shadow:var(--shadow);
+}
+.role-switch { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px; }
+.role-switch button {
+    padding:11px; border:1px solid var(--border); border-radius:10px;
+    background:var(--bg); color:var(--muted); font-weight:800;
+}
+.role-switch button.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-field { margin-bottom:13px; }
+.form-field.full { grid-column:1/-1; }
+.form-field label { display:block; font-size:12px; font-weight:700; margin-bottom:6px; color:var(--muted); }
+.form-field input,.form-field select,.form-field textarea {
+    width:100%; padding:12px 13px; border:1px solid var(--border); border-radius:10px;
+    background:var(--bg); color:var(--text); outline:none;
+}
+.form-field textarea { min-height:90px; resize:vertical; }
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus {
+    border-color:var(--primary); box-shadow:0 0 0 3px rgba(29,93,145,.09);
+}
+.requests-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.request-card {
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:20px; box-shadow:var(--shadow); transition:.25s;
+}
+.request-card:hover { transform:translateY(-4px); }
+.request-badge { font-size:11px; font-weight:800; color:var(--primary); background:rgba(29,93,145,.09); padding:5px 8px; border-radius:20px; }
+.request-card h3 { margin:12px 0 5px; }
+.request-meta { color:var(--muted); font-size:13px; display:grid; gap:5px; }
+.request-desc { margin-top:12px; font-size:13px; color:var(--muted); }
+.toast {
+    position:fixed; right:20px; bottom:20px; z-index:2000; background:#10283f; color:#fff;
+    padding:13px 17px; border-radius:11px; box-shadow:0 15px 40px rgba(0,0,0,.25);
+    transform:translateY(30px); opacity:0; pointer-events:none; transition:.3s;
+}
+.toast.show { transform:translateY(0); opacity:1; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+@keyframes heroIn { from{opacity:0} to{opacity:1} }
+@keyframes floatOrb { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-25px,25px)} }
+@media(max-width:900px){
+    .post-wrap { grid-template-columns:1fr; }
+    .requests-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:650px){
+    .quick-grid,.form-grid,.requests-grid { grid-template-columns:1fr; }
+    .form-field.full { grid-column:auto; }
+    .post-intro,.form-card { padding:20px; }
+    .nav-link { display:none; }
+}
+
 </style>
 </head>
 
@@ -501,6 +640,8 @@ footer strong {
         </div>
 
         <div class="nav-actions">
+            <button class="nav-link" onclick="showSection('post')">Post Requirement</button>
+            <button class="nav-link" onclick="showSection('requests')">Community Requests</button>
             <div class="welcome" id="welcomeText"></div>
             <button class="nav-btn" onclick="toggleTheme()">☼ / ☾</button>
             <button class="nav-btn" id="loginBtn" onclick="openLogin()">Sign In</button>
@@ -513,9 +654,9 @@ footer strong {
 <section class="hero" id="home">
     <div class="hero-inner">
 
-        <div class="badge">Industrial Property • Pune Region</div>
+        <div class="badge">Industrial Property • Bhosari • MIDC • Chakan</div>
 
-        <h1>Find the right industrial property with confidence.</h1>
+        <h1>Find industrial property with clarity, confidence & direct connections.</h1>
 
         <p>
             Connect with industrial property sellers and potential business buyers
@@ -533,8 +674,30 @@ footer strong {
         </div>
 
     </div>
+
 </section>
 
+<section class="section" style="padding-top:45px;padding-bottom:25px;">
+    <div class="section-kicker">How LandFlow works</div>
+    <div class="section-header" style="margin-bottom:10px;">
+        <div>
+            <h2>One place for property + requirements</h2>
+            <p>Choose what you need, understand the listing, then connect directly.</p>
+        </div>
+    </div>
+    <div class="quick-grid">
+        <div class="quick-card" onclick="showSection('sellers')">
+            <div class="quick-icon">🏭</div>
+            <h3>I want to buy / find property</h3>
+            <p>Browse industrial sheds, factories, galas and land by location, area and price.</p>
+        </div>
+        <div class="quick-card" onclick="showSection('post');setRole('buyer')">
+            <div class="quick-icon">🎯</div>
+            <h3>I have a requirement</h3>
+            <p>Tell owners what you need — budget, location, property type and size.</p>
+        </div>
+    </div>
+</section>
 
 <!-- TRUST -->
 <div class="trust-row">
@@ -612,6 +775,89 @@ footer strong {
 
 </section>
 
+
+
+<!-- POST REQUIREMENT -->
+<section class="section post-section" id="post">
+    <div class="post-wrap">
+        <div class="post-intro">
+            <div class="section-kicker" style="color:#9cc8eb;">Connect smarter</div>
+            <h2>Post your property requirement</h2>
+            <p>Buyers can describe what they want. Sellers can add a property available for sale. Your post stays on this browser for this demo.</p>
+            <div class="post-points">
+                <div class="post-point"><b>✓</b><span>Choose Buyer or Seller in one click</span></div>
+                <div class="post-point"><b>✓</b><span>Add budget, location, area and property type</span></div>
+                <div class="post-point"><b>✓</b><span>Your new post appears instantly below</span></div>
+                <div class="post-point"><b>✓</b><span>Designed for a premium, easy-to-understand experience</span></div>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <div class="section-kicker">Create a post</div>
+            <div class="role-switch">
+                <button id="buyerRoleBtn" class="active" type="button" onclick="setRole('buyer')">I am a Buyer</button>
+                <button id="sellerRoleBtn" type="button" onclick="setRole('seller')">I am a Seller</button>
+            </div>
+
+            <form id="requirementForm" onsubmit="submitRequirement(event)">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Your Name</label>
+                        <input id="reqName" required placeholder="Full name">
+                    </div>
+                    <div class="form-field">
+                        <label>Contact Number</label>
+                        <input id="reqPhone" required inputmode="tel" placeholder="10-digit number">
+                    </div>
+                    <div class="form-field">
+                        <label>Location</label>
+                        <input id="reqLocation" required placeholder="Bhosari / Chakan / MIDC">
+                    </div>
+                    <div class="form-field">
+                        <label>Property Type</label>
+                        <select id="reqType" required>
+                            <option value="">Select type</option>
+                            <option>Industrial Shed</option>
+                            <option>Factory</option>
+                            <option>Industrial Gala</option>
+                            <option>Industrial Land / Plot</option>
+                            <option>Warehouse / Godown</option>
+                            <option>Industrial Building</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label id="budgetLabel">Budget</label>
+                        <input id="reqBudget" required placeholder="e.g. ₹50 Lakh – ₹1 Crore">
+                    </div>
+                    <div class="form-field">
+                        <label>Area Required / Available</label>
+                        <input id="reqArea" required placeholder="e.g. 2,500 sq ft">
+                    </div>
+                    <div class="form-field full">
+                        <label>Additional Requirement</label>
+                        <textarea id="reqDetails" placeholder="Road touch, crane, power, possession, preferred phase, etc."></textarea>
+                    </div>
+                </div>
+                <button class="form-submit" type="submit">Publish Requirement →</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- COMMUNITY REQUESTS -->
+<section class="section" id="requests">
+    <div class="section-kicker">Live on this device</div>
+    <div class="section-header">
+        <div>
+            <h2>Community Requests</h2>
+            <p>New buyer requirements and seller property posts appear here.</p>
+        </div>
+    </div>
+    <div class="requests-grid" id="requestCards"></div>
+    <div class="empty" id="requestEmpty" style="display:block;">
+        No new community posts yet. Be the first to add a requirement.
+    </div>
+</section>
 
 <footer>
     <div class="footer-inner">
@@ -1243,7 +1489,110 @@ document
 
     });
 
+
+/* =========================
+   REQUIREMENT / PROPERTY POSTING
+========================= */
+
+let selectedRole = "buyer";
+
+function setRole(role) {
+    selectedRole = role;
+    document.getElementById("buyerRoleBtn").classList.toggle("active", role === "buyer");
+    document.getElementById("sellerRoleBtn").classList.toggle("active", role === "seller");
+    document.getElementById("budgetLabel").textContent =
+        role === "buyer" ? "Budget" : "Expected Price";
+}
+
+function submitRequirement(event) {
+    event.preventDefault();
+
+    const post = {
+        id: Date.now(),
+        role: selectedRole,
+        name: document.getElementById("reqName").value.trim(),
+        phone: document.getElementById("reqPhone").value.replace(/\D/g, ""),
+        location: document.getElementById("reqLocation").value.trim(),
+        type: document.getElementById("reqType").value,
+        budget: document.getElementById("reqBudget").value.trim(),
+        area: document.getElementById("reqArea").value.trim(),
+        details: document.getElementById("reqDetails").value.trim()
+    };
+
+    if (post.phone.length < 10) {
+        showToast("Please enter a valid contact number.");
+        return;
+    }
+
+    const posts = JSON.parse(localStorage.getItem("landflowPosts") || "[]");
+    posts.unshift(post);
+    localStorage.setItem("landflowPosts", JSON.stringify(posts.slice(0, 30)));
+
+    renderRequests();
+    document.getElementById("requirementForm").reset();
+    setRole(selectedRole);
+    showToast(selectedRole === "buyer"
+        ? "Buyer requirement published successfully."
+        : "Property listing published successfully.");
+    setTimeout(() => showSection("requests"), 350);
+}
+
+function renderRequests() {
+    const posts = JSON.parse(localStorage.getItem("landflowPosts") || "[]");
+    const container = document.getElementById("requestCards");
+    const empty = document.getElementById("requestEmpty");
+
+    container.innerHTML = "";
+
+    if (!posts.length) {
+        empty.style.display = "block";
+        return;
+    }
+
+    empty.style.display = "none";
+
+    posts.forEach(post => {
+        const title = post.role === "buyer"
+            ? "Looking to Buy"
+            : "Property Available";
+
+        const wa = post.phone ? `https://wa.me/91${post.phone.slice(-10)}` : "#";
+        const safeDetails = post.details
+            ? post.details.replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]))
+            : "No additional details provided.";
+
+        container.innerHTML += `
+            <article class="request-card">
+                <span class="request-badge">${title}</span>
+                <h3>${post.type}</h3>
+                <div class="request-meta">
+                    <span>📍 ${post.location}</span>
+                    <span>📐 ${post.area}</span>
+                    <span>💰 ${post.budget}</span>
+                    <span>👤 ${post.name}</span>
+                </div>
+                <div class="request-desc">${safeDetails}</div>
+                <div class="card-actions" style="margin:16px -20px -20px;">
+                    <a class="call" href="tel:+91${post.phone}">☎ Call</a>
+                    <a class="whatsapp" href="${wa}" target="_blank">WhatsApp</a>
+                </div>
+            </article>
+        `;
+    });
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+}
+
+renderRequests();
+
 </script>
 
+<div class="toast" id="toast"></div>
 </body>
 </html>
